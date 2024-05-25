@@ -1,6 +1,8 @@
 from container import Component, Autowired, Resource, container
 from value import Value
+from flask import *
 
+app = Flask(__name__)
 @Component
 class ServiceA:
     def __init__(self):
@@ -32,6 +34,8 @@ class MessageService:
 class ConfigService:
     pass
 
-client = container.get_bean("Client")
-print(container.get_bean("MessageService").message)
-print(container.get_bean("ConfigService").config)
+@app.route('/')
+def index():
+    return container.get_bean("MessageService").message
+
+app.run(app, port=80, host='0.0.0.0')

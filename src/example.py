@@ -38,4 +38,6 @@ class ConfigService:
 def index():
     return container.get_bean("MessageService").message
 
-app.run(app, port=80, host='0.0.0.0')
+if __name__ == '__main__':
+    # Run the Flask application with host and port arguments
+    app.run(port=80, host='0.0.0.0')

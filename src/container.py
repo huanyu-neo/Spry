@@ -41,27 +41,3 @@ class Container:
         for resource_name, resource_value in bean_definition.resources.items():
             setattr(bean_instance, resource_name, resource_value)
         return bean_instance
-
-
-def Component(cls):
-    container.register(cls)
-    return cls
-
-
-def Autowired(bean_class):
-    container.bean_definitions[func.__name__].add_dependency(bean_class)
-    return bean_class
-
-
-def Value(name, value):
-    def decorator(cls):
-        container.bean_definitions[cls.__name__].add_property(name, value)
-        return cls
-    return decorator
-
-
-def Resource(name, resource):
-    def decorator(cls):
-        container.bean_definitions[cls.__name__].add_resource(name, resource)
-        return cls
-    return decorator

@@ -18,7 +18,7 @@ class ServiceB:
 
 @Component
 class Client:
-    @Autowired
+    @Autowired()
     def __init__(self, service_a: ServiceA, service_b: ServiceB):
         self.service_a = service_a
         self.service_b = service_b

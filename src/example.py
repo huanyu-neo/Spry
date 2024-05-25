@@ -1,8 +1,5 @@
-from container import Container
+from container import Component, Autowired, Resource, container
 from value import Value
-
-container = Container()
-
 
 @Component
 class ServiceA:
@@ -16,23 +13,25 @@ class ServiceB:
         self.name = "ServiceB"
 
 
+@Autowired(ServiceA)
+@Autowired(ServiceB)
 @Component
 class Client:
-    @Autowired()
-    def __init__(self, service_a: ServiceA, service_b: ServiceB):
-        self.service_a = service_a
-        self.service_b = service_b
+    def __init__(self):
+        pass
 
 
 @Value("message", "Hello, World!")
+@Component
 class MessageService:
     pass
 
 
 @Resource("config", {"key": "value"})
+@Component
 class ConfigService:
     pass
 
 client = container.get_bean("Client")
-print(MessageService().message)
-print(ConfigService().config)
+print(container.get_bean("MessageService").message)
+print(container.get_bean("ConfigService").config)

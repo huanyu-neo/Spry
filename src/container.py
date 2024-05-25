@@ -1,5 +1,5 @@
 class BeanDefinition:
-    def __init__(self, bean_class):
+    def __init__(self, bean_class: type):
         self.bean_class = bean_class
         self.dependencies = []
         self.properties = {}
@@ -20,7 +20,7 @@ class BeanDefinition:
 
 class Container:
     def __init__(self):
-        self.bean_definitions = {}
+        self.bean_definitions: dict[str, BeanDefinition] = {}
 
     def register(self, bean_class):
         bean_name = bean_class.__name__
@@ -41,6 +41,9 @@ class Container:
         for resource_name, resource_value in bean_definition.resources.items():
             setattr(bean_instance, resource_name, resource_value)
         return bean_instance
+
+
+container = Container()
 
 
 def Component(cls):
